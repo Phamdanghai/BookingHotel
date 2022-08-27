@@ -32,14 +32,14 @@ public class HotelServiceImpl implements HotelService {
 		if (optionalHotel.isPresent()) {
 			throw new ResourceNotFoundException("Hotel is already existed. Please enter a different hotel");
 		}
-		Hotel savehotel = hotelRepository.save(hotel);
-		return modelMapper.map(savehotel, HotelResponse.class);
+		Hotel saveHotel = hotelRepository.save(hotel);
+		return modelMapper.map(saveHotel, HotelResponse.class);
 	}
 
 	@Override
 	public HotelResponse updateHotel(HotelRequest hotelRequest, Long id) {
 		Hotel hotel = hotelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Hotel not found"));
-		modelMapper.map(hotelRequest, Hotel.class);
+		modelMapper.map(hotelRequest, hotel);
 		hotelRepository.save(hotel);
 		return modelMapper.map(hotel, HotelResponse.class);
 	}
