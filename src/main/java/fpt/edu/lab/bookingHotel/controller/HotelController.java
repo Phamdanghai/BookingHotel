@@ -1,13 +1,12 @@
 package fpt.edu.lab.bookingHotel.controller;
 
-import fpt.edu.lab.bookingHotel.entity.Hotel;
 import fpt.edu.lab.bookingHotel.request.HotelRequest;
+import fpt.edu.lab.bookingHotel.response.HotelResponse;
 import fpt.edu.lab.bookingHotel.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import fpt.edu.lab.bookingHotel.response.HotelResponse;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -28,7 +27,7 @@ public class HotelController {
     }
 
     @GetMapping
-    List<Hotel> getAll(){
+    List<HotelResponse> getAll(){
         return hotelService.getAllHotel();
     }
 

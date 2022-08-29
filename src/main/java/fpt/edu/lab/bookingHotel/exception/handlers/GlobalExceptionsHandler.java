@@ -1,5 +1,6 @@
 package fpt.edu.lab.bookingHotel.exception.handlers;
 
+import fpt.edu.lab.bookingHotel.exception.ForbiddenException;
 import fpt.edu.lab.bookingHotel.exception.ResourceNotFoundException;
 import fpt.edu.lab.bookingHotel.response.ErrorResponse;
 import org.springframework.http.HttpHeaders;
@@ -39,6 +40,12 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({ ResourceNotFoundException.class })
     protected ResponseEntity<ErrorResponse> handleNotFoundAssetException(RuntimeException exception, WebRequest request) {
+        ErrorResponse error = new ErrorResponse("400", exception.getMessage());
+        return new ResponseEntity<ErrorResponse>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({ ForbiddenException.class })
+    protected ResponseEntity<ErrorResponse> ForbiddenException(RuntimeException exception, WebRequest request) {
         ErrorResponse error = new ErrorResponse("400", exception.getMessage());
         return new ResponseEntity<ErrorResponse>(error, HttpStatus.NOT_FOUND);
     }

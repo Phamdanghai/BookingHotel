@@ -23,6 +23,8 @@ public class Hotel {
 
     private String location;
 
+    private Boolean status;
+
     @OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Room> rooms;
 }
