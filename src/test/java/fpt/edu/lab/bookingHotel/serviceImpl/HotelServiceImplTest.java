@@ -58,15 +58,15 @@ public class HotelServiceImplTest {
         HotelResponse result = hotelServiceImpl.createHotel(hotelRequest);
         assertThat(result,is(hotelResponse));
     }
-//    @Test
-//    void createHotel_ShouldReturnException_WhenHotelIsPresent(){
-//        when(modelMapper.map(hotelRequest,Hotel.class)).thenReturn(hotel);
-//        when(hotelRepository.findByName("Test")).thenReturn(Optional.of(optionalHotel));
-//        when(Optional.of(optionalHotel)).thenReturn(Optional.empty());
-//        ResourceNotFoundException resourceNotFoundException = Assertions.assertThrows(ResourceNotFoundException.class,
-//                () -> hotelServiceImpl.createHotel(hotelRequest));
-//        assertThat(resourceNotFoundException.getMessage(),is("Hotel is already existed. Please enter a different hotel"));
-//    }
+    @Test
+    void createHotel_ShouldReturnException_WhenHotelIsPresent(){
+        when(modelMapper.map(hotelRequest,Hotel.class)).thenReturn(hotel);
+        when(hotelRepository.findByName(hotelRequest.getName())).thenReturn(Optional.of(optionalHotel));
+//        when(Optional.of(optionalHotel).isPresent()).thenReturn(true);
+        ResourceNotFoundException resourceNotFoundException = Assertions.assertThrows(ResourceNotFoundException.class,
+                () -> hotelServiceImpl.createHotel(hotelRequest));
+        assertThat(resourceNotFoundException.getMessage(),is("Hotel is already existed. Please enter a different hotel"));
+    }
 
     @Test
     void updateHotel_ShouldReturnObject_WhenDataValid(){
@@ -79,11 +79,18 @@ public class HotelServiceImplTest {
         assertThat(response,is(hotelResponse));
     }
 
+    @Test
+    void updateHotel_ShouldReturnException_When(){
+        when(hotelRepository.findById(1L)).thenReturn(Optional.empty());
+        ResourceNotFoundException resourceNotFoundException = Assertions.assertThrows(ResourceNotFoundException.class,
+                () -> hotelServiceImpl.updateHotel(hotelRequest,1L));
+        assertThat(resourceNotFoundException.getMessage(),is("Hotel not found"));
+    }
+
 //    @Test
-//    void updateHotel_ShouldReturnException_When(){
-//        when(hotelRepository.findById(1L)).thenReturn(Optional.ofNullable(hotel));
-//        when(hotelRepository.findByName("Test")).thenReturn(Optional.of(optionalHotel));
-//        when(Optional.of(optionalHotel).isPresent()).thenReturn(true);
+//    void updateHotel_ShouldReturnException(){
+//        when(hotelRepository.findById(1L)).thenReturn(Optional.of(hotel));
+//        when(hotelRepository.findByName(hotelRequest.getName())).thenReturn(Optional.of(optionalHotel));
 //        ResourceNotFoundException resourceNotFoundException = Assertions.assertThrows(ResourceNotFoundException.class,
 //                () -> hotelServiceImpl.updateHotel(hotelRequest,1L));
 //        assertThat(resourceNotFoundException.getMessage(),is("Hotel is already existed. Please enter a different hotel"));

@@ -6,11 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "kindOfRooms")
+@Table(name = "kind_of_rooms")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,8 +21,6 @@ public class KindOfRoom {
     private Long id;
 
     private String name;
-
-    private int amount;
 
     @OneToMany(mappedBy = "kindOfRooms",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Room> rooms;

@@ -28,6 +28,8 @@ public class Room {
 
     private String status;
 
+    private int amount;
+
     @ManyToOne
     @JoinColumn(name = "kind_of_room_id",nullable = false)
     private KindOfRoom kindOfRooms;
